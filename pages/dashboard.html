@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - 园区招商管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">园区概览</h1>
+        <p class="text-sm text-gray-500">实时监控园区各项指标和资源使用状况</p>
+    </div>
+    
+    <!-- 数据卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-md p-6 flex items-center">
+            <div class="rounded-full bg-blue-100 p-3 mr-4">
+                <i class="fas fa-building text-blue-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-gray-400">可用资源</h3>
+                <p class="text-2xl font-bold text-gray-800">127</p>
+                <p class="text-xs text-green-500"><i class="fas fa-arrow-up"></i> 增长 3.5%</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 flex items-center">
+            <div class="rounded-full bg-purple-100 p-3 mr-4">
+                <i class="fas fa-puzzle-piece text-purple-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-gray-400">招商项目</h3>
+                <p class="text-2xl font-bold text-gray-800">24</p>
+                <p class="text-xs text-green-500"><i class="fas fa-arrow-up"></i> 增长 12%</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 flex items-center">
+            <div class="rounded-full bg-amber-100 p-3 mr-4">
+                <i class="fas fa-handshake text-amber-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-gray-400">本月签约</h3>
+                <p class="text-2xl font-bold text-gray-800">6</p>
+                <p class="text-xs text-red-500"><i class="fas fa-arrow-down"></i> 下降 2%</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md p-6 flex items-center">
+            <div class="rounded-full bg-emerald-100 p-3 mr-4">
+                <i class="fas fa-chart-line text-emerald-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-gray-400">资源利用率</h3>
+                <p class="text-2xl font-bold text-gray-800">78%</p>
+                <p class="text-xs text-green-500"><i class="fas fa-arrow-up"></i> 增长 5%</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 图表和分析 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="font-bold text-gray-800 mb-4">资源利用率趋势</h2>
+            <canvas id="resourceUtilizationChart" height="200"></canvas>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="font-bold text-gray-800 mb-4">招商项目分类统计</h2>
+            <canvas id="projectCategoryChart" height="200"></canvas>
+        </div>
+    </div>
+    
+    <!-- 最新招商项目和活动 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-gray-800">最新招商项目</h2>
+                <a href="#" class="text-sm text-blue-600 hover:underline">查看全部</a>
+            </div>
+            <div class="space-y-4">
+                <div class="border-b pb-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="font-medium">智能制造产业园</h3>
+                            <p class="text-sm text-gray-500">包含: 2栋厂房, 办公楼, 停车场</p>
+                        </div>
+                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">招商中</span>
+                    </div>
+                </div>
+                <div class="border-b pb-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="font-medium">新能源充电站</h3>
+                            <p class="text-sm text-gray-500">包含: 停车场, 供电设施, 管理人员</p>
+                        </div>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">准备中</span>
+                    </div>
+                </div>
+                <div class="border-b pb-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="font-medium">跨境电商仓储中心</h3>
+                            <p class="text-sm text-gray-500">包含: 仓库, 物流通道, 办公区</p>
+                        </div>
+                        <span class="px-2 py-1 bg-amber-100 text-amber-800 text-xs rounded-full">已签约</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-gray-800">最新客户跟进</h2>
+                <a href="#" class="text-sm text-blue-600 hover:underline">查看全部</a>
+            </div>
+            <div class="space-y-4">
+                <div class="border-b pb-3 flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <h3 class="font-medium">上海科技有限公司</h3>
+                        <p class="text-sm text-gray-500">对智能制造产业园感兴趣</p>
+                    </div>
+                    <span class="text-xs text-gray-500">2小时前</span>
+                </div>
+                <div class="border-b pb-3 flex items-center">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <h3 class="font-medium">绿电新能源科技</h3>
+                        <p class="text-sm text-gray-500">即将进行第二次洽谈</p>
+                    </div>
+                    <span class="text-xs text-gray-500">昨天</span>
+                </div>
+                <div class="border-b pb-3 flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/81.jpg" class="w-10 h-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <h3 class="font-medium">国际物流集团</h3>
+                        <p class="text-sm text-gray-500">已预约场地考察</p>
+                    </div>
+                    <span class="text-xs text-gray-500">3天前</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 资源利用率趋势图表
+        const resourceCtx = document.getElementById('resourceUtilizationChart').getContext('2d');
+        const resourceChart = new Chart(resourceCtx, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '资源利用率',
+                    data: [65, 68, 72, 75, 72, 78],
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 50,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 招商项目分类统计图表
+        const projectCtx = document.getElementById('projectCategoryChart').getContext('2d');
+        const projectChart = new Chart(projectCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['制造业', '仓储物流', '科技研发', '商业服务', '其他'],
+                datasets: [{
+                    data: [40, 20, 15, 15, 10],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(249, 115, 22, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

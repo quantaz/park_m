@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户管理 - 园区招商管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">客户管理</h1>
+            <p class="text-sm text-gray-500">管理潜在客户和跟踪商谈进度</p>
+        </div>
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center">
+            <i class="fas fa-plus mr-2"></i> 添加客户
+        </button>
+    </div>
+    
+    <!-- 客户管理视图切换 -->
+    <div class="mb-6 bg-white p-2 rounded-xl shadow-sm inline-flex">
+        <button class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-medium">
+            <i class="fas fa-list mr-2"></i> 列表视图
+        </button>
+        <button class="px-4 py-2 hover:bg-gray-100 rounded-lg">
+            <i class="fas fa-th-large mr-2"></i> 看板视图
+        </button>
+    </div>
+    
+    <!-- 筛选和搜索 -->
+    <div class="mb-6 flex flex-wrap gap-4">
+        <div class="flex-1 min-w-[300px]">
+            <div class="relative">
+                <input type="text" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500" placeholder="搜索客户...">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>所有阶段</option>
+                <option>初步接触</option>
+                <option>需求沟通</option>
+                <option>方案协商</option>
+                <option>合同谈判</option>
+                <option>已签约</option>
+                <option>已流失</option>
+            </select>
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>意向项目</option>
+                <option>智能制造产业园</option>
+                <option>新能源充电站</option>
+                <option>跨境电商仓储中心</option>
+                <option>科技企业孵化器</option>
+                <option>其他</option>
+            </select>
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>跟进时间</option>
+                <option>企业规模</option>
+                <option>意向度</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- 客户列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-600 text-sm">
+                <tr class="border-b">
+                    <th class="py-3 px-4 font-medium">客户</th>
+                    <th class="py-3 px-4 font-medium">联系方式</th>
+                    <th class="py-3 px-4 font-medium">意向项目</th>
+                    <th class="py-3 px-4 font-medium">跟进阶段</th>
+                    <th class="py-3 px-4 font-medium">最近联系</th>
+                    <th class="py-3 px-4 font-medium">负责人</th>
+                    <th class="py-3 px-4 font-medium">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium">上海科技有限公司</div>
+                                <div class="text-xs text-gray-500">陈总 - CEO</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div>137****5678</div>
+                        <div class="text-xs text-gray-500">chen@company.com</div>
+                    </td>
+                    <td class="py-3 px-4">智能制造产业园</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">方案协商</span>
+                    </td>
+                    <td class="py-3 px-4">2023-06-15</td>
+                    <td class="py-3 px-4">张经理</td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                        <button class="text-green-600 hover:text-green-800 mr-1">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium">绿电新能源科技</div>
+                                <div class="text-xs text-gray-500">李总 - 运营总监</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div>186****1234</div>
+                        <div class="text-xs text-gray-500">li@greenenergy.com</div>
+                    </td>
+                    <td class="py-3 px-4">新能源充电站</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">合同谈判</span>
+                    </td>
+                    <td class="py-3 px-4">2023-06-13</td>
+                    <td class="py-3 px-4">王主任</td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                        <button class="text-green-600 hover:text-green-800 mr-1">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/81.jpg" class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium">国际物流集团</div>
+                                <div class="text-xs text-gray-500">王总 - 采购总监</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div>139****7890</div>
+                        <div class="text-xs text-gray-500">wang@logistics.com</div>
+                    </td>
+                    <td class="py-3 px-4">跨境电商仓储中心</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">需求沟通</span>
+                    </td>
+                    <td class="py-3 px-4">2023-06-10</td>
+                    <td class="py-3 px-4">李总监</td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                        <button class="text-green-600 hover:text-green-800 mr-1">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium">智慧创新有限公司</div>
+                                <div class="text-xs text-gray-500">张女士 - 副总裁</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div>150****5678</div>
+                        <div class="text-xs text-gray-500">zhang@innovation.com</div>
+                    </td>
+                    <td class="py-3 px-4">科技企业孵化器</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-medium">初步接触</span>
+                    </td>
+                    <td class="py-3 px-4">2023-06-08</td>
+                    <td class="py-3 px-4">赵经理</td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                        <button class="text-green-600 hover:text-green-800 mr-1">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/55.jpg" class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium">东方文创产业集团</div>
+                                <div class="text-xs text-gray-500">刘先生 - 市场总监</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div>138****2345</div>
+                        <div class="text-xs text-gray-500">liu@oriental.com</div>
+                    </td>
+                    <td class="py-3 px-4">文创办公空间</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">已流失</span>
+                    </td>
+                    <td class="py-3 px-4">2023-05-20</td>
+                    <td class="py-3 px-4">刘主管</td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                        <button class="text-green-600 hover:text-green-800 mr-1">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 跟进记录 -->
+    <div class="bg-white rounded-xl shadow-sm p-4">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold text-gray-800">最近跟进记录</h2>
+            <a href="#" class="text-sm text-blue-600 hover:underline">查看全部</a>
+        </div>
+        <div class="space-y-4">
+            <div class="border-l-2 border-green-500 pl-4 pb-4 relative">
+                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-green-500"></div>
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="font-medium">绿电新能源科技</h3>
+                        <p class="text-sm text-gray-500">与李总进行第二轮合同条款沟通，客户对租金价格有异议，需要再次协商</p>
+                    </div>
+                    <span class="text-xs text-gray-500">今天 14:30</span>
+                </div>
+                <div class="mt-2 flex justify-between items-center">
+                    <span class="text-xs text-gray-500">跟进人: 王主任</span>
+                    <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs">合同谈判</span>
+                </div>
+            </div>
+            
+            <div class="border-l-2 border-blue-500 pl-4 pb-4 relative">
+                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-blue-500"></div>
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="font-medium">国际物流集团</h3>
+                        <p class="text-sm text-gray-500">安排王总实地考察跨境电商仓储中心，客户对物流通道和仓库高度有特殊需求</p>
+                    </div>
+                    <span class="text-xs text-gray-500">昨天 10:15</span>
+                </div>
+                <div class="mt-2 flex justify-between items-center">
+                    <span class="text-xs text-gray-500">跟进人: 李总监</span>
+                    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">需求沟通</span>
+                </div>
+            </div>
+            
+            <div class="border-l-2 border-emerald-500 pl-4 pb-0 relative">
+                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-emerald-500"></div>
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="font-medium">上海科技有限公司</h3>
+                        <p class="text-sm text-gray-500">发送智能制造产业园详细方案，包含厂房图纸和配套设施清单，客户反馈良好</p>
+                    </div>
+                    <span class="text-xs text-gray-500">3天前</span>
+                </div>
+                <div class="mt-2 flex justify-between items-center">
+                    <span class="text-xs text-gray-500">跟进人: 张经理</span>
+                    <span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs">方案协商</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

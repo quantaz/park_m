@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目配置器 - 园区招商管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .resource-item {
+            cursor: move;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .resource-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .drop-zone {
+            min-height: 200px;
+            border: 2px dashed #d1d5db;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        .drop-zone.active {
+            border-color: #818cf8;
+            background-color: rgba(129, 140, 248, 0.1);
+        }
+        .dragging {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">项目配置器</h1>
+            <p class="text-sm text-gray-500">通过拖拽方式整合资源，创建招商项目</p>
+        </div>
+        <div class="flex gap-3">
+            <button id="aiSuggest" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="fas fa-robot mr-2"></i> AI 推荐方案
+            </button>
+            <button id="saveProject" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="fas fa-save mr-2"></i> 保存项目
+            </button>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- 左侧资源列表 -->
+        <div class="lg:col-span-1 bg-white rounded-xl shadow-sm p-4">
+            <div class="mb-4 flex justify-between items-center">
+                <h2 class="font-bold text-gray-800">可用资源</h2>
+                <div class="relative">
+                    <input type="text" class="pl-8 pr-4 py-1 border rounded-lg w-full text-sm" placeholder="搜索资源...">
+                    <i class="fas fa-search absolute left-3 top-2 text-gray-400 text-sm"></i>
+                </div>
+            </div>
+            
+            <div class="mb-2 flex flex-wrap gap-2">
+                <button class="px-2 py-1 text-xs rounded bg-indigo-100 text-indigo-700">全部</button>
+                <button class="px-2 py-1 text-xs rounded hover:bg-gray-100">厂房</button>
+                <button class="px-2 py-1 text-xs rounded hover:bg-gray-100">库房</button>
+                <button class="px-2 py-1 text-xs rounded hover:bg-gray-100">办公</button>
+                <button class="px-2 py-1 text-xs rounded hover:bg-gray-100">基础设施</button>
+                <button class="px-2 py-1 text-xs rounded hover:bg-gray-100">人力</button>
+            </div>
+            
+            <div class="space-y-3 overflow-y-auto max-h-[600px] pr-2 resource-container">
+                <!-- 可拖拽资源项 -->
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="厂房" data-id="building1">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">A区标准厂房1</h3>
+                        <p class="text-xs text-gray-500">面积: 2,500㎡</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="库房" data-id="warehouse1">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">B区标准库房2</h3>
+                        <p class="text-xs text-gray-500">面积: 1,800㎡</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="办公楼" data-id="office1">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">C区行政办公楼</h3>
+                        <p class="text-xs text-gray-500">面积: 1,200㎡</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="停车场" data-id="parking1">
+                    <div class="w-10 h-10 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-parking"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">A区大型停车场</h3>
+                        <p class="text-xs text-gray-500">停车位: 120个</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="供电设施" data-id="power1">
+                    <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">B区变电站</h3>
+                        <p class="text-xs text-gray-500">容量: 5,000kW</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="人力资源" data-id="security1">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">园区保安团队</h3>
+                        <p class="text-xs text-gray-500">人数: 25人</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="管网设施" data-id="pipe1">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">园区供水管网</h3>
+                        <p class="text-xs text-gray-500">覆盖: 全园区</p>
+                    </div>
+                </div>
+                
+                <div class="resource-item p-3 border rounded-lg flex items-center" draggable="true" data-type="宿舍楼" data-id="dorm1">
+                    <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-gray-800">园区员工宿舍</h3>
+                        <p class="text-xs text-gray-500">容纳: 200人</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧项目配置区 -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- 项目基本信息 -->
+            <div class="bg-white rounded-xl shadow-sm p-4">
+                <h2 class="font-bold text-gray-800 mb-4">项目基本信息</h2>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">项目名称</label>
+                            <input type="text" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500" placeholder="输入项目名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">项目类型</label>
+                            <select class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                                <option>制造业</option>
+                                <option>仓储物流</option>
+                                <option>科技研发</option>
+                                <option>商业服务</option>
+                                <option>其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">项目描述</label>
+                        <textarea class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500" rows="2" placeholder="简要描述项目内容和招商方向"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 资源组合区 -->
+            <div class="bg-white rounded-xl shadow-sm p-4">
+                <h2 class="font-bold text-gray-800 mb-4">资源组合</h2>
+                <p class="text-sm text-gray-500 mb-4">将左侧资源拖拽到此区域进行组合，形成招商项目包</p>
+                
+                <div id="dropZone" class="drop-zone p-4 rounded-lg">
+                    <div class="text-center text-gray-400 py-8" id="emptyDropZone">
+                        <i class="fas fa-arrow-left text-3xl mb-2"></i>
+                        <p>拖拽资源到此处</p>
+                    </div>
+                    
+                    <!-- 已添加的资源项会动态显示在这里 -->
+                    <div id="addedResources" class="grid grid-cols-1 md:grid-cols-2 gap-3 hidden">
+                        <!-- 示例已添加资源 -->
+                        <div class="p-3 border rounded-lg flex items-center bg-blue-50 border-blue-200">
+                            <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-2">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-gray-800">A区标准厂房1</h3>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目预览 -->
+            <div class="bg-white rounded-xl shadow-sm p-4">
+                <h2 class="font-bold text-gray-800 mb-4">项目预览</h2>
+                
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-50 p-4 border-b">
+                        <h3 class="font-bold text-lg">智能制造产业园</h3>
+                        <p class="text-sm text-gray-600">制造业 | 预计收益: ¥120,000/月</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-medium mb-2">包含资源:</h4>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-building text-xs"></i>
+                                </div>
+                                <span class="text-sm">A区标准厂房1 (2,500㎡)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-building text-xs"></i>
+                                </div>
+                                <span class="text-sm">C区行政办公楼部分 (500㎡)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-bolt text-xs"></i>
+                                </div>
+                                <span class="text-sm">B区变电站配电 (800kW)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-user-shield text-xs"></i>
+                                </div>
+                                <span class="text-sm">园区保安团队 (5人)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-indigo-50 p-3 rounded-lg mb-4">
+                            <h4 class="font-medium flex items-center text-indigo-800 mb-1">
+                                <i class="fas fa-robot mr-2"></i> AI 建议
+                            </h4>
+                            <p class="text-sm text-indigo-700">根据当前资源组合，建议细分为高精度制造园区项目，重点面向电子、精密器械制造企业，预计可提高收益20%。</p>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center">
+                                <i class="fas fa-check mr-2"></i> 确认创建
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 拖拽功能示例
+        document.addEventListener('DOMContentLoaded', function() {
+            const resourceItems = document.querySelectorAll('.resource-item');
+            const dropZone = document.getElementById('dropZone');
+            const emptyDropZone = document.getElementById('emptyDropZone');
+            const addedResources = document.getElementById('addedResources');
+            
+            // 拖拽开始
+            resourceItems.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    this.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', this.dataset.id);
+                });
+                
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                });
+            });
+            
+            // 放置目标
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('active');
+            });
+            
+            dropZone.addEventListener('dragleave', function() {
+                this.classList.remove('active');
+            });
+            
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('active');
+                
+                const resourceId = e.dataTransfer.getData('text/plain');
+                const draggedItem = document.querySelector(`[data-id="${resourceId}"]`);
+                
+                if (draggedItem) {
+                    // 显示已添加资源区
+                    emptyDropZone.classList.add('hidden');
+                    addedResources.classList.remove('hidden');
+                    
+                    // 创建并添加资源项
+                    const resourceType = draggedItem.dataset.type;
+                    const resourceName = draggedItem.querySelector('h3').textContent;
+                    
+                    // 根据资源类型选择不同的图标和颜色
+                    let iconClass = 'fas fa-cube';
+                    let colorClass = 'bg-gray-100 text-gray-600';
+                    
+                    if (resourceType === '厂房') {
+                        iconClass = 'fas fa-building';
+                        colorClass = 'bg-blue-100 text-blue-600';
+                    } else if (resourceType === '库房') {
+                        iconClass = 'fas fa-warehouse';
+                        colorClass = 'bg-amber-100 text-amber-600';
+                    } else if (resourceType === '办公楼') {
+                        iconClass = 'fas fa-building';
+                        colorClass = 'bg-emerald-100 text-emerald-600';
+                    } else if (resourceType === '停车场') {
+                        iconClass = 'fas fa-parking';
+                        colorClass = 'bg-gray-100 text-gray-600';
+                    } else if (resourceType === '供电设施') {
+                        iconClass = 'fas fa-bolt';
+                        colorClass = 'bg-yellow-100 text-yellow-600';
+                    } else if (resourceType === '人力资源') {
+                        iconClass = 'fas fa-user-shield';
+                        colorClass = 'bg-purple-100 text-purple-600';
+                    } else if (resourceType === '管网设施') {
+                        iconClass = 'fas fa-water';
+                        colorClass = 'bg-blue-100 text-blue-600';
+                    } else if (resourceType === '宿舍楼') {
+                        iconClass = 'fas fa-home';
+                        colorClass = 'bg-indigo-100 text-indigo-600';
+                    }
+                    
+                    const newItem = document.createElement('div');
+                    newItem.className = 'p-3 border rounded-lg flex items-center bg-blue-50 border-blue-200';
+                    newItem.innerHTML = `
+                        <div class="w-8 h-8 ${colorClass} rounded-full flex items-center justify-center mr-2">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-800">${resourceName}</h3>
+                            <span class="text-xs text-gray-500">${resourceType}</span>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700 remove-resource">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    addedResources.appendChild(newItem);
+                    
+                    // 添加移除事件
+                    newItem.querySelector('.remove-resource').addEventListener('click', function() {
+                        newItem.remove();
+                        if (addedResources.children.length === 0) {
+                            emptyDropZone.classList.remove('hidden');
+                            addedResources.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+            
+            // AI推荐按钮
+            document.getElementById('aiSuggest').addEventListener('click', function() {
+                alert('正在分析资源组合，生成AI推荐方案...');
+                
+                // 模拟AI响应，实际项目中这里应该调用后端API
+                setTimeout(() => {
+                    const suggestions = [
+                        "根据当前资源组合，建议开发'新能源汽车产业基地'，主要面向电动汽车制造商和零部件供应商。",
+                        "推荐整合为'高新技术研发中心'，针对科技型企业提供一站式服务，预计可提高整体收益30%。",
+                        "建议打造'跨境电商物流园区'，利用现有仓储和物流资源，适合引进电商及供应链企业。"
+                    ];
+                    
+                    // 随机选择一个建议
+                    const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+                    
+                    // 显示建议
+                    const suggestionBox = document.createElement('div');
+                    suggestionBox.className = 'mt-4 p-4 bg-indigo-50 rounded-lg';
+                    suggestionBox.innerHTML = `
+                        <h4 class="font-medium flex items-center text-indigo-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i> AI资源整合建议
+                        </h4>
+                        <p class="text-sm text-indigo-700">${randomSuggestion}</p>
+                    `;
+                    
+                    // 如果已经有建议，则替换
+                    const existingSuggestion = dropZone.querySelector('.bg-indigo-50');
+                    if (existingSuggestion) {
+                        existingSuggestion.remove();
+                    }
+                    
+                    dropZone.appendChild(suggestionBox);
+                }, 1500);
+            });
+            
+            // 保存项目按钮
+            document.getElementById('saveProject').addEventListener('click', function() {
+                const projectName = document.querySelector('input[placeholder="输入项目名称"]').value;
+                
+                if (!projectName) {
+                    alert('请输入项目名称');
+                    return;
+                }
+                
+                if (addedResources.children.length === 0) {
+                    alert('请添加至少一个资源');
+                    return;
+                }
+                
+                alert(`项目"${projectName}"已保存！`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招商项目 - 园区招商管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">招商项目</h1>
+            <p class="text-sm text-gray-500">管理所有创建的招商项目及跟踪进展</p>
+        </div>
+        <a href="project-configurator.html" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center">
+            <i class="fas fa-plus mr-2"></i> 新建项目
+        </a>
+    </div>
+    
+    <!-- 项目筛选和搜索 -->
+    <div class="mb-6 flex flex-wrap gap-4">
+        <div class="flex-1 min-w-[300px]">
+            <div class="relative">
+                <input type="text" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500" placeholder="搜索项目...">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>所有状态</option>
+                <option>筹备中</option>
+                <option>招商中</option>
+                <option>已签约</option>
+                <option>已中止</option>
+            </select>
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>所有类型</option>
+                <option>制造业</option>
+                <option>仓储物流</option>
+                <option>科技研发</option>
+                <option>商业服务</option>
+                <option>其他</option>
+            </select>
+            <select class="border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500">
+                <option>创建时间</option>
+                <option>预期收益</option>
+                <option>资源数量</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- 项目列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-600 text-sm">
+                <tr class="border-b">
+                    <th class="py-3 px-4 font-medium">项目名称</th>
+                    <th class="py-3 px-4 font-medium">类型</th>
+                    <th class="py-3 px-4 font-medium">包含资源</th>
+                    <th class="py-3 px-4 font-medium">预期收益</th>
+                    <th class="py-3 px-4 font-medium">创建日期</th>
+                    <th class="py-3 px-4 font-medium">状态</th>
+                    <th class="py-3 px-4 font-medium">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="font-medium">智能制造产业园</div>
+                        <div class="text-xs text-gray-500">负责人: 张经理</div>
+                    </td>
+                    <td class="py-3 px-4">制造业</td>
+                    <td class="py-3 px-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-bolt text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center border border-white">
+                                <span class="text-xs font-medium">+2</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">¥120,000/月</td>
+                    <td class="py-3 px-4">2023-05-15</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">招商中</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="font-medium">新能源充电站</div>
+                        <div class="text-xs text-gray-500">负责人: 王主任</div>
+                    </td>
+                    <td class="py-3 px-4">能源服务</td>
+                    <td class="py-3 px-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-parking text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-bolt text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-user-shield text-xs"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">¥80,000/月</td>
+                    <td class="py-3 px-4">2023-06-02</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">筹备中</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="font-medium">跨境电商仓储中心</div>
+                        <div class="text-xs text-gray-500">负责人: 李总监</div>
+                    </td>
+                    <td class="py-3 px-4">仓储物流</td>
+                    <td class="py-3 px-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-warehouse text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center border border-white">
+                                <span class="text-xs font-medium">+3</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">¥150,000/月</td>
+                    <td class="py-3 px-4">2023-04-10</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">已签约</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="font-medium">科技企业孵化器</div>
+                        <div class="text-xs text-gray-500">负责人: 赵经理</div>
+                    </td>
+                    <td class="py-3 px-4">科技研发</td>
+                    <td class="py-3 px-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-water text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-home text-xs"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">¥95,000/月</td>
+                    <td class="py-3 px-4">2023-05-28</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">招商中</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <div class="font-medium">文创办公空间</div>
+                        <div class="text-xs text-gray-500">负责人: 刘主管</div>
+                    </td>
+                    <td class="py-3 px-4">商业服务</td>
+                    <td class="py-3 px-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center border border-white">
+                                <i class="fas fa-parking text-xs"></i>
+                            </div>
+                            <div class="w-7 h-7 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center border border-white">
+                                <span class="text-xs font-medium">+1</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">¥60,000/月</td>
+                    <td class="py-3 px-4">2023-06-05</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">已中止</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button class="text-indigo-600 hover:text-indigo-800 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="mt-6 flex justify-between items-center">
+        <span class="text-sm text-gray-600">显示 1 到 5，共 12 个项目</span>
+        <div class="flex space-x-1">
+            <button class="px-3 py-1 rounded bg-gray-200 text-gray-600">上一页</button>
+            <button class="px-3 py-1 rounded bg-indigo-600 text-white">1</button>
+            <button class="px-3 py-1 rounded hover:bg-gray-200">2</button>
+            <button class="px-3 py-1 rounded hover:bg-gray-200">3</button>
+            <button class="px-3 py-1 rounded hover:bg-gray-200">下一页</button>
+        </div>
+    </div>
+</body>
+</html>
